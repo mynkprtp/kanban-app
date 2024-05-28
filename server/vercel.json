@@ -1,8 +1,14 @@
 {
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "bin/www.js"
+      "src": "bin/www.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "bin/www.js"
     }
   ]
 }
