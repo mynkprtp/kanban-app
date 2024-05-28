@@ -5,10 +5,10 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import assets from '../../assets/index'
 import { useEffect, useState } from 'react'
+import boardApi from '../../api/boardApi'
 import { setBoards } from '../../redux/features/boardSlice'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import FavouriteList from './FavouriteList'
-import boardApi from '../../api/boardApi'
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user.value)
@@ -55,7 +55,7 @@ const Sidebar = () => {
     dispatch(setBoards(newList))
 
     try {
-      await boardApi.updatePosition({ boards: newList })
+      await boardApi.updatePositoin({ boards: newList })
     } catch (err) {
       alert(err)
     }

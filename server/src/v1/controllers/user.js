@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
         errors: [
           {
             param: 'username',
-            msg: 'Invalid username'
+            msg: 'Invalid username or password'
           }
         ]
       })
@@ -46,8 +46,8 @@ exports.login = async (req, res) => {
       return res.status(401).json({
         errors: [
           {
-            param: 'password',
-            msg: 'Invalid password'
+            param: 'username',
+            msg: 'Invalid username or password'
           }
         ]
       })

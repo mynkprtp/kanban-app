@@ -9,7 +9,6 @@ exports.create = async (req, res) => {
       user: req.user._id,
       position: boardsCount > 0 ? boardsCount : 0
     })
-    console.log(board)
     res.status(201).json(board)
   } catch (err) {
     res.status(500).json(err)

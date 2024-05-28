@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import { Box } from '@mui/material'
+import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import authUtils from '../../utils/authUtils';
-import { Box } from '@mui/material';
-import Loading from '../common/Loading';
-import SideBar from '../common/Sidebar';
-import {setUser} from '../../redux/features/userSlice'
+import { useDispatch } from 'react-redux'
+import authUtils from '../../utils/authUtils'
+import Loading from '../common/Loading'
+import Sidebar from '../common/Sidebar'
+import { setUser } from '../../redux/features/userSlice'
 
-function AppLayout() {
-    const navigate = useNavigate()
-    const [loading,setLoading] = useState(true);
-    const dispatch = useDispatch()
+const AppLayout = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
-    useEffect(()=>{
-        const checkAuth = async () => {
-            const user =  await authUtils.isAuthenticated();
-            if(!user)
-                navigate('/login')
-            else{
-                // SAVE USER
-                dispatch(setUser(user))
-                setLoading(false)
-            }
-        }
-        checkAuth()
-    },[navigate]);
+  useEffect(() => {
+    const checkAuth = async () => {
+      const user = await authUtils.isAuthenticated()
+      if (!user) {
+        navigate('/login')
+      } else {
+        // save user
+        dispatch(setUser(user))
+        setLoading(false)
+      }
+    }
+    checkAuth()
+  }, [navigate])
+
   return (
     loading ? (
-        <Loading fullHeight/>
+      <Loading fullHeight />
     ) : (
+      <Box sx={{
+        display: 'flex'
+      }}>
+        <Sidebar />
         <Box sx={{
-            display: 'flex',
+          flexGrow: 1,
+          p: 1,
+          width: 'max-content'
         }}>
-            <SideBar/>
-            <Box sx={{
-                flexGrow: 1,
-                p: 1,
-                width: 'max-content'
-            }}>
-                <Outlet/>
-            </Box>
+          <Outlet />
         </Box>
+      </Box>
     )
   )
 }
